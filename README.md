@@ -1,10 +1,23 @@
 # catbreeds
 
-A new Flutter project.
+CartBreeds APP.
 
 ## Getting Started
 
-This project is a starting point for a Flutter application.
+  Package:
+    device_preview: ^1.1.0
+    http: ^1.1.0
+    dartz: ^0.10.1
+    lottie: ^2.6.0
+    connectivity_plus: ^4.0.2
+    provider: ^6.0.5
+    equatable: ^2.0.5
+    get_it: ^7.6.0
+    animate_do: ^3.0.2
+    url_launcher: ^6.1.12
+
+with Clean Architecture.
+
 
 A few resources to get you started if this is your first Flutter project:
 
