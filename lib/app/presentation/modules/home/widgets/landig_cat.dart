@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 
-import '../../../../domain/models/breeds.dart';
+import '../../../../domain/entities/breeds_entity.dart';
 import '../../../../utils/screen_utils.dart';
 import '../../../global/widgets/images_custom.dart';
 import '../../../global/widgets/subtitle.dart';
 
 class LandingCat extends StatelessWidget {
-  final Breeds breed;
+  final BreedEntity breed;
   final Function() goToDetail;
   const LandingCat({
     super.key,
@@ -53,7 +53,7 @@ class LandingCat extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Subtitle(
-                    title: breed.origin ?? 'Desconocido',
+                    title: breed.originCat,
                   ),
                   const SizedBox(width: 5),
                   Subtitle(

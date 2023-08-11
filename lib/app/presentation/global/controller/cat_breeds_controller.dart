@@ -1,6 +1,6 @@
 
+import '../../../domain/entities/breeds_entity.dart';
 import '../../../domain/enums.dart';
-import '../../../domain/models/breeds.dart';
 import '../../../domain/repositories/catsbreeds_repository.dart';
 import '../../modules/home/controller/cat_breeds_state.dart';
 import '../state_notify.dart';
@@ -11,28 +11,39 @@ class CatBreedsController extends StateNotify<CatBreedsState> {
   CatBreedsController(super.state, {required this.catsBreedsRepository});
 
   Future<void> getNewCatsbreed() async {
-    state = stateCurrent.copyWith(page: stateCurrent.page + 1);
+    state = stateCurrent.copyWith(page: stateCurrent.page + 1, isLoading: true);
     await getCateBeerds();
   }
 
-  Future<void> selectBreed(Breeds breed) async {
+  void filterCats(String matcherWord) async {
+    final matchesResult =
+        await catsBreedsRepository.seachLocalCats(matcherWord);
+    state = stateCurrent.copyWith(
+      breeds: matchesResult,
+      isLoading: false,
+    );
+  }
+
+  Future<void> selectBreed(BreedEntity breed) async {
     state = stateCurrent.copyWith(breed: breed);
   }
 
-  Future<void> getCateBeerds() async {
-    if (oldState.page == stateCurrent.page && stateCurrent.breeds.isNotEmpty) {
-      return;
-    }
-
-    final response = await catsBreedsRepository.getCatsList(stateCurrent.page);
+  Future<void> getCateBeerds({bool deleteInserts = false}) async {
+    final response = await catsBreedsRepository.getCatsBreeds(
+        stateCurrent.page,
+        oldState.page != stateCurrent.page && stateCurrent.breeds.isNotEmpty,
+        deleteInserts);
 
     response.when(
-      (p0) {
-        state = stateCurrent.copyWith(failure: getError(p0));
+      (failure) {
+        state =
+            stateCurrent.copyWith(failure: getError(failure), isLoading: false);
       },
       (listBreads) {
         state = stateCurrent.copyWith(
-          breeds: [...stateCurrent.breeds, ...listBreads],
+          breeds: listBreads,
+          page: deleteInserts ? 0 : stateCurrent.page,
+          isLoading: false,
         );
       },
     );

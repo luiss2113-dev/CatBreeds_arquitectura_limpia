@@ -19,6 +19,4 @@ void main() async {
         create: (context) => SplashController(const SplashState(),
             connectivityRepository: getSl())),
   ], child: const MyApp()));
-
 }
-

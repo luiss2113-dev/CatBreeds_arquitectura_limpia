@@ -8,6 +8,7 @@ import '../../../global/widgets/error_view.dart';
 import '../../../global/widgets/subtitle.dart';
 import '../../../routes/routes.dart';
 import 'landig_cat.dart';
+import 'search_item.dart';
 
 class ConsumerListCats extends StatefulWidget {
   final Function() callAgain;
@@ -19,6 +20,7 @@ class ConsumerListCats extends StatefulWidget {
 
 class _ConsumerListCatsState extends State<ConsumerListCats> {
   late ScrollController _controller;
+  final TextEditingController _controllerSearcher = TextEditingController();
 
   @override
   void initState() {
@@ -30,9 +32,11 @@ class _ConsumerListCatsState extends State<ConsumerListCats> {
   void _scrollListener() {
     if (_controller.offset >= _controller.position.maxScrollExtent &&
         !_controller.position.outOfRange) {
-      Provider.of<CatBreedsController>(context, listen: false)
-          .getNewCatsbreed();
-      showToastCat(context);
+      if (_controllerSearcher.text == '') {
+        Provider.of<CatBreedsController>(context, listen: false)
+            .getNewCatsbreed();
+        showToastCat(context);
+      }
     }
   }
 
@@ -44,7 +48,11 @@ class _ConsumerListCatsState extends State<ConsumerListCats> {
 
         if (value.stateCurrent.failure != '') {
           return ErrorMessage(
-              message: value.stateCurrent.failure, onPressed: () {});
+              message: value.stateCurrent.failure,
+              onPressed: () {
+                Provider.of<CatBreedsController>(context, listen: false)
+                    .getCateBeerds();
+              });
         }
 
         if (listCatsBreed.isEmpty) {
@@ -53,21 +61,26 @@ class _ConsumerListCatsState extends State<ConsumerListCats> {
           );
         }
 
-        return SizedBox(
-            width: double.infinity,
-            height: context.screenHeigt * 0.9,
-            child: ListView.builder(
-                controller: _controller,
-                itemCount: listCatsBreed.length,
-                itemBuilder: (context, index) {
-                  return LandingCat(
-                    breed: listCatsBreed[index],
-                    goToDetail: () {
-                      value.selectBreed(listCatsBreed[index]);
-                      Navigator.pushNamed(context, Routes.detail);
-                    },
-                  );
-                }));
+        return Column(
+          children: [
+            SearcherItem(controller: _controllerSearcher),
+            SizedBox(
+                width: context.screenWidth,
+                height: context.screenHeigt * 0.8,
+                child: ListView.builder(
+                    controller: _controller,
+                    itemCount: listCatsBreed.length,
+                    itemBuilder: (context, index) {
+                      return LandingCat(
+                        breed: listCatsBreed[index],
+                        goToDetail: () {
+                          value.selectBreed(listCatsBreed[index]);
+                          Navigator.pushNamed(context, Routes.detail);
+                        },
+                      );
+                    })),
+          ],
+        );
       },
     );
   }

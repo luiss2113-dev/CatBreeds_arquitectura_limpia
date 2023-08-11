@@ -1,3 +1,4 @@
+
 import 'package:animate_do/animate_do.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -15,23 +16,30 @@ class HomeView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: Provider.of<CatBreedsController>(context, listen: false)
-            .getCateBeerds(),
-        builder: (BuildContext context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.done) {
-            return ScaffoldContainer(
-                appBar: const CustomAppBar(),
-                body: FadeIn(
-                  child: ConsumerListCats(
-                    callAgain: () {
-                
-                    },
-                  ),
-                ));
-          }
+      future: Provider.of<CatBreedsController>(context, listen: false)
+          .getCateBeerds(),
+      builder: (BuildContext context, snapshot) {
+        if (snapshot.connectionState != ConnectionState.done) {
           return Scaffold(
             body: FadeIn(child: const LoadingView()),
           );
-        });
+        }
+
+        return ScaffoldContainer(
+            appBar: const CustomAppBar(),
+            body: FadeIn(
+              child: RefreshIndicator(
+                onRefresh: () async {
+                  Provider.of<CatBreedsController>(context, listen: false)
+                      .getCateBeerds(deleteInserts: true);
+                },
+                child: ConsumerListCats(callAgain: () {
+                  Provider.of<CatBreedsController>(context, listen: false)
+                      .getCateBeerds();
+                }),
+              ),
+            ));
+      },
+    );
   }
 }

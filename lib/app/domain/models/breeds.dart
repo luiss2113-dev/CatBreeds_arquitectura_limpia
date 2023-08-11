@@ -7,19 +7,25 @@ import 'dart:convert';
 import 'package:equatable/equatable.dart';
 
 import '../../data/helpers/constants.dart';
+import '../entities/breeds_entity.dart';
 
 ///Mapeo de CatsBreesd response de Breeds
-class Breeds extends Equatable {
+class Breeds implements BreedEntity {
   final Weight? weight;
+  @override
   final String? id;
+  @override
   final String? name;
   final String? cfaUrl;
   final String? vetstreetUrl;
   final String? vcahospitalsUrl;
+  @override
   final String? temperament;
+  @override
   final String? origin;
   final String? countryCodes;
   final String? countryCode;
+  @override
   final String? description;
   final String? lifeSpan;
   final int? indoor;
@@ -28,12 +34,16 @@ class Breeds extends Equatable {
   final int? adaptability;
   final int? affectionLevel;
   final int? childFriendly;
+  @override
   final int? dogFriendly;
+  @override
   final int? energyLevel;
   final int? grooming;
   final int? healthIssues;
+  @override
   final int? intelligence;
   final int? sheddingLevel;
+  @override
   final int? socialNeeds;
   final int? strangerFriendly;
   final int? vocalisation;
@@ -44,8 +54,10 @@ class Breeds extends Equatable {
   final int? rex;
   final int? suppressedTail;
   final int? shortLegs;
+  @override
   final String? wikipediaUrl;
   final int? hypoallergenic;
+  @override
   final String? referenceImageId;
   final int? catFriendly;
   final int? bidability;
@@ -92,20 +104,31 @@ class Breeds extends Equatable {
     this.bidability,
   });
 
+  @override
   String get idImage => '$id$referenceImageId';
+  @override
   String get imageCat => '${Constants.images}$referenceImageId.jpg';
+  @override
   String get nameCategory => name ?? 'Desconocido';
+  @override
   String get originCat => origin ?? 'Desconocido';
+  @override
   String get descriptionCat => description ?? 'Desconocido';
+  @override
   String get temperamentCat => temperament ?? 'Desconocido';
+  @override
   String get dogFriendlyCat =>
       dogFriendly == null ? 'Desconocido' : '$dogFriendly';
+  @override
   String get energyLevelCat =>
       energyLevel == null ? 'Desconocido' : '$energyLevel';
+  @override
   String get socialNeedsCat =>
       socialNeeds == null ? 'Desconocido' : '$socialNeeds';
+  @override
   String get wikipediaUrlCat => wikipediaUrl ?? 'Desconocido';
 
+  @override
   Breeds copyWith({
     Weight? weight,
     String? id,
@@ -191,8 +214,6 @@ class Breeds extends Equatable {
 
   factory Breeds.fromRawJson(String str) => Breeds.fromJson(json.decode(str));
 
-  String toRawJson() => json.encode(toJson());
-
   //Function convert string to list<Breeds>
   static List<Breeds> fromListJson(String str) {
     final jsonData = json.decode(str);
@@ -246,48 +267,6 @@ class Breeds extends Equatable {
         bidability: json["bidability"],
       );
 
-  Map<String, dynamic> toJson() => {
-        "weight": weight?.toJson(),
-        "id": id,
-        "name": name,
-        "cfa_url": cfaUrl,
-        "vetstreet_url": vetstreetUrl,
-        "vcahospitals_url": vcahospitalsUrl,
-        "temperament": temperament,
-        "origin": origin,
-        "country_codes": countryCodes,
-        "country_code": countryCode,
-        "description": description,
-        "life_span": lifeSpan,
-        "indoor": indoor,
-        "lap": lap,
-        "alt_names": altNames,
-        "adaptability": adaptability,
-        "affection_level": affectionLevel,
-        "child_friendly": childFriendly,
-        "dog_friendly": dogFriendly,
-        "energy_level": energyLevel,
-        "grooming": grooming,
-        "health_issues": healthIssues,
-        "intelligence": intelligence,
-        "shedding_level": sheddingLevel,
-        "social_needs": socialNeeds,
-        "stranger_friendly": strangerFriendly,
-        "vocalisation": vocalisation,
-        "experimental": experimental,
-        "hairless": hairless,
-        "natural": natural,
-        "rare": rare,
-        "rex": rex,
-        "suppressed_tail": suppressedTail,
-        "short_legs": shortLegs,
-        "wikipedia_url": wikipediaUrl,
-        "hypoallergenic": hypoallergenic,
-        "reference_image_id": referenceImageId,
-        "cat_friendly": catFriendly,
-        "bidability": bidability,
-      };
-
   @override
   List<Object?> get props => [
         weight,
@@ -330,6 +309,30 @@ class Breeds extends Equatable {
         catFriendly,
         bidability,
       ];
+
+  @override
+  bool? get stringify => true;
+
+  @override
+  Map<String, dynamic> toJsonEntity() => {
+        "id": id,
+        "name": name,
+        "temperament": temperament,
+        "origin": origin,
+        "description": description,
+        "dog_friendly": dogFriendly,
+        "energy_level": energyLevel,
+        "intelligence": intelligence,
+        "social_needs": socialNeeds,
+        "wikipedia_url": wikipediaUrl,
+        "reference_image_id": referenceImageId,
+      };
+
+  @override
+  String toRawJsonEntity() {
+    // TODO: implement toRawJsonEntity
+    throw UnimplementedError();
+  }
 }
 
 class Weight extends Equatable {
