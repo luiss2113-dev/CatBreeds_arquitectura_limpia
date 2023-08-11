@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
-import '../../../../data/helpers/constants.dart';
 import '../../../../domain/models/breeds.dart';
 import '../../../../utils/screen_utils.dart';
+import '../../../global/widgets/images_custom.dart';
 import '../../../global/widgets/subtitle.dart';
 
 class LandingCat extends StatelessWidget {
@@ -33,7 +33,7 @@ class LandingCat extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Subtitle(
-                    title: breed.name ?? 'Desconocido',
+                    title: breed.nameCategory,
                   ),
                   IconButton(
                       onPressed: goToDetail,
@@ -41,13 +41,12 @@ class LandingCat extends StatelessWidget {
                 ],
               ),
               const SizedBox(height: 5),
-              Container(
-                color: Colors.lightBlue,
-                child: Image.network(
-                  '${Constants.images}${breed.referenceImageId}.jpg',
-                  height: context.screenHeigt * 0.23,
-                  fit: BoxFit.fill,
-                ),
+              SizedBox(
+                width: context.screenWidth,
+                height: context.screenHeigt * 0.23,
+                child: Hero(
+                    tag: breed.idImage,
+                    child: ImageCustom(netWorkImageURL: breed.imageCat)),
               ),
               const SizedBox(height: 5),
               Row(

@@ -6,6 +6,8 @@ import 'dart:convert';
 
 import 'package:equatable/equatable.dart';
 
+import '../../data/helpers/constants.dart';
+
 ///Mapeo de CatsBreesd response de Breeds
 class Breeds extends Equatable {
   final Weight? weight;
@@ -89,6 +91,20 @@ class Breeds extends Equatable {
     this.catFriendly,
     this.bidability,
   });
+
+  String get idImage => '$id$referenceImageId';
+  String get imageCat => '${Constants.images}$referenceImageId.jpg';
+  String get nameCategory => name ?? 'Desconocido';
+  String get originCat => origin ?? 'Desconocido';
+  String get descriptionCat => description ?? 'Desconocido';
+  String get temperamentCat => temperament ?? 'Desconocido';
+  String get dogFriendlyCat =>
+      dogFriendly == null ? 'Desconocido' : '$dogFriendly';
+  String get energyLevelCat =>
+      energyLevel == null ? 'Desconocido' : '$energyLevel';
+  String get socialNeedsCat =>
+      socialNeeds == null ? 'Desconocido' : '$socialNeeds';
+  String get wikipediaUrlCat => wikipediaUrl ?? 'Desconocido';
 
   Breeds copyWith({
     Weight? weight,

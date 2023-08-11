@@ -1,15 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:url_launcher/url_launcher.dart';
 
-import '../../../data/helpers/constants.dart';
 import '../../../utils/screen_utils.dart';
 import '../../global/controller/cat_breeds_controller.dart';
 import '../../global/widgets/app_bar.dart';
+import '../../global/widgets/images_custom.dart';
 import '../../global/widgets/subtitle.dart';
 import '../../global/widgets/title_custom.dart';
 
 class DetailView extends StatelessWidget {
   const DetailView({super.key});
+
+  Future<void> _launchUrl(Uri url) async {
+    if (!await launchUrl(url)) {
+      throw Exception('Could not launch $url');
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -21,11 +28,11 @@ class DetailView extends StatelessWidget {
           SizedBox(
             width: context.screenWidth,
             height: context.screenHeigt * 0.4,
-            child: Image.network(
-              '${Constants.images}${catSelected.referenceImageId}.jpg',
-              height: context.screenHeigt * 0.4,
-              fit: BoxFit.fill,
-            ),
+            child: Hero(
+                tag: catSelected.idImage,
+                child: ImageCustom(
+                  netWorkImageURL: catSelected.imageCat,
+                )),
           ),
           SizedBox(
               width: context.screenWidth,
@@ -36,26 +43,35 @@ class DetailView extends StatelessWidget {
                   child: Column(
                     children: [
                       const TitleCustom(title: 'Origin'),
-                      Subtitle(title: catSelected.origin ?? 'Desconocido'),
+                      Subtitle(title: catSelected.originCat),
                       SizedBox(height: context.screenHeigt * 0.01),
                       const TitleCustom(title: 'Description'),
-                      Subtitle(title: catSelected.description ?? 'Desconocido'),
+                      Subtitle(title: catSelected.descriptionCat),
                       SizedBox(height: context.screenHeigt * 0.01),
                       const TitleCustom(title: 'Temperament'),
-                      Subtitle(title: catSelected.temperament ?? 'Desconocido'),
+                      Subtitle(title: catSelected.temperamentCat),
                       SizedBox(height: context.screenHeigt * 0.01),
                       const TitleCustom(title: 'Dog Friendly'),
-                      Subtitle(title: '${catSelected.dogFriendly}'),
+                      Subtitle(title: catSelected.dogFriendlyCat),
                       SizedBox(height: context.screenHeigt * 0.01),
                       const TitleCustom(title: 'Energy Level'),
-                      Subtitle(title: '${catSelected.energyLevel}'),
-                       SizedBox(height: context.screenHeigt * 0.01),
+                      Subtitle(title: catSelected.energyLevelCat),
+                      SizedBox(height: context.screenHeigt * 0.01),
                       const TitleCustom(title: 'Social Needs'),
-                      Subtitle(title: '${catSelected.socialNeeds}'),
-                       SizedBox(height: context.screenHeigt * 0.01),
+                      Subtitle(title: catSelected.socialNeedsCat),
+                      SizedBox(height: context.screenHeigt * 0.01),
                       const TitleCustom(title: 'Wikipedia'),
-                      Subtitle(title: '${catSelected.wikipediaUrl}'),
-                      
+                      InkWell(
+                        onTap: () =>
+                            _launchUrl(Uri.parse(catSelected.wikipediaUrlCat)),
+                        child: const Text(
+                          'Saber Más',
+                          style: TextStyle(
+                              fontSize: 18,
+                              decoration: TextDecoration.underline,
+                              color: Colors.blue),
+                        ),
+                      ),
                     ],
                   ),
                 ),
