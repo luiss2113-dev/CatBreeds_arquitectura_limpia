@@ -5,7 +5,7 @@ CartBreeds APP.
 ## Getting Started
 
   Package:
-    device_preview: ^1.1.0 \n
+    device_preview: ^1.1.0 
     http: ^1.1.0
     dartz: ^0.10.1
     lottie: ^2.6.0
