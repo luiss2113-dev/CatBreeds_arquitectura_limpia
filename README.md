@@ -5,7 +5,7 @@ CartBreeds APP.
 ## Getting Started
 
   Package:
-    device_preview: ^1.1.0
+    device_preview: ^1.1.0 \n
     http: ^1.1.0
     dartz: ^0.10.1
     lottie: ^2.6.0
@@ -15,6 +15,9 @@ CartBreeds APP.
     get_it: ^7.6.0
     animate_do: ^3.0.2
     url_launcher: ^6.1.12
+    sqlflite 
+    path
+    
 
 with Clean Architecture.
 
