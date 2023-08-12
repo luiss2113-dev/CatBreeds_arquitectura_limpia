@@ -5,7 +5,6 @@ import '../../../../utils/screen_utils.dart';
 import '../../../global/controller/cat_breeds_controller.dart';
 import '../../../global/dialogs/snackbar_load.dart';
 import '../../../global/widgets/error_view.dart';
-import '../../../global/widgets/subtitle.dart';
 import '../../../routes/routes.dart';
 import 'landig_cat.dart';
 import 'search_item.dart';
@@ -56,9 +55,12 @@ class _ConsumerListCatsState extends State<ConsumerListCats> {
         }
 
         if (listCatsBreed.isEmpty) {
-          return const Center(
-            child: Subtitle(title: 'No hay datos'),
-          );
+          return ErrorMessage(
+              message: 'No se encontraron resultados',
+              onPressed: () {
+                Provider.of<CatBreedsController>(context, listen: false)
+                    .getCateBeerds();
+              });
         }
 
         return Column(
