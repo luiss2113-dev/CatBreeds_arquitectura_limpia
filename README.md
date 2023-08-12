@@ -1,6 +1,6 @@
 # catbreeds
 
-App básica recolecta uso de provider como gestor de estado, inyección de dependencias, buenas practicas, commits iniciales, mapeo de datos, uso de http para llamadas a APIs, Uso de provider como gestor de estados,
+App básica recolecta uso de provider como gestor de estado, inyección de dependencias, buenas practicas, commits iniciales, mapeo de datos, uso de http para llamadas a APIs,
 uso de Futures para el llamado de información, base de datos para filtro, y guardado de nuevos datos.
 
 1. Página de splash controlada con delay, integración de animaciones lottie.
