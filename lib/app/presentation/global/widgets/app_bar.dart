@@ -20,9 +20,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
         mainAxisAlignment: MainAxisAlignment.start,
         children: [
           if (title == null)
-           Container(
-                width: context.screenWidth * 0.9,
-                alignment: Alignment.center,
+           Expanded(
                 child:
             Image.asset(Constants.logo, fit: BoxFit.contain, height: 60)),
           if (title != null)

@@ -10,23 +10,13 @@ import '../../data/helpers/constants.dart';
 import '../entities/breeds_entity.dart';
 
 ///Mapeo de CatsBreesd response de Breeds
-class Breeds implements BreedEntity {
+class Breeds extends BreedEntity {
   final Weight? weight;
-  @override
-  final String? id;
-  @override
-  final String? name;
   final String? cfaUrl;
   final String? vetstreetUrl;
   final String? vcahospitalsUrl;
-  @override
-  final String? temperament;
-  @override
-  final String? origin;
   final String? countryCodes;
   final String? countryCode;
-  @override
-  final String? description;
   final String? lifeSpan;
   final int? indoor;
   final int? lap;
@@ -34,17 +24,9 @@ class Breeds implements BreedEntity {
   final int? adaptability;
   final int? affectionLevel;
   final int? childFriendly;
-  @override
-  final int? dogFriendly;
-  @override
-  final int? energyLevel;
   final int? grooming;
   final int? healthIssues;
-  @override
-  final int? intelligence;
   final int? sheddingLevel;
-  @override
-  final int? socialNeeds;
   final int? strangerFriendly;
   final int? vocalisation;
   final int? experimental;
@@ -54,26 +36,22 @@ class Breeds implements BreedEntity {
   final int? rex;
   final int? suppressedTail;
   final int? shortLegs;
-  @override
-  final String? wikipediaUrl;
   final int? hypoallergenic;
-  @override
-  final String? referenceImageId;
   final int? catFriendly;
   final int? bidability;
 
   const Breeds({
     this.weight,
-    this.id,
-    this.name,
+    super.id,
+    super.name,
     this.cfaUrl,
     this.vetstreetUrl,
     this.vcahospitalsUrl,
-    this.temperament,
-    this.origin,
+    super.temperament,
+    super.origin,
     this.countryCodes,
     this.countryCode,
-    this.description,
+    super.description,
     this.lifeSpan,
     this.indoor,
     this.lap,
@@ -81,13 +59,13 @@ class Breeds implements BreedEntity {
     this.adaptability,
     this.affectionLevel,
     this.childFriendly,
-    this.dogFriendly,
-    this.energyLevel,
+    super.dogFriendly,
+    super.energyLevel,
     this.grooming,
     this.healthIssues,
-    this.intelligence,
+    super.intelligence,
     this.sheddingLevel,
-    this.socialNeeds,
+    super.socialNeeds,
     this.strangerFriendly,
     this.vocalisation,
     this.experimental,
@@ -97,9 +75,9 @@ class Breeds implements BreedEntity {
     this.rex,
     this.suppressedTail,
     this.shortLegs,
-    this.wikipediaUrl,
+    super.wikipediaUrl,
     this.hypoallergenic,
-    this.referenceImageId,
+    super.referenceImageId,
     this.catFriendly,
     this.bidability,
   });
@@ -313,25 +291,37 @@ class Breeds implements BreedEntity {
   @override
   bool? get stringify => true;
 
-  @override
-  Map<String, dynamic> toJsonEntity() => {
-        "id": id,
-        "name": name,
-        "temperament": temperament,
-        "origin": origin,
-        "description": description,
-        "dog_friendly": dogFriendly,
-        "energy_level": energyLevel,
-        "intelligence": intelligence,
-        "social_needs": socialNeeds,
-        "wikipedia_url": wikipediaUrl,
-        "reference_image_id": referenceImageId,
-      };
-
-  @override
-  String toRawJsonEntity() {
-    // TODO: implement toRawJsonEntity
-    throw UnimplementedError();
+  Map<String, dynamic> toMap() {
+    return {
+      'weight': weight?.toJson(),
+      'cfaUrl': cfaUrl,
+      'vetstreetUrl': vetstreetUrl,
+      'vcahospitalsUrl': vcahospitalsUrl,
+      'countryCodes': countryCodes,
+      'countryCode': countryCode,
+      'lifeSpan': lifeSpan,
+      'indoor': indoor,
+      'lap': lap,
+      'altNames': altNames,
+      'adaptability': adaptability,
+      'affectionLevel': affectionLevel,
+      'childFriendly': childFriendly,
+      'grooming': grooming,
+      'healthIssues': healthIssues,
+      'sheddingLevel': sheddingLevel,
+      'strangerFriendly': strangerFriendly,
+      'vocalisation': vocalisation,
+      'experimental': experimental,
+      'hairless': hairless,
+      'natural': natural,
+      'rare': rare,
+      'rex': rex,
+      'suppressedTail': suppressedTail,
+      'shortLegs': shortLegs,
+      'hypoallergenic': hypoallergenic,
+      'catFriendly': catFriendly,
+      'bidability': bidability,
+    };
   }
 }
 
